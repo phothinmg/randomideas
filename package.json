@@ -1,7 +1,7 @@
 {
   "name": "randomideas",
   "version": "1.0.0",
-  "description": "Idea sharing app",
+  "description": "Idea sharing app, Udemy course project",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
