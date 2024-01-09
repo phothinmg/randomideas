@@ -12,7 +12,7 @@ class IdeaList{
         this._validTags.add('business');
         this._validTags.add('education');
         this._validTags.add('health');
-        this._validTags.add('inventions');
+        this._validTags.add('admin');
     }
 
 addEventListeners() {
@@ -61,19 +61,29 @@ addEventListeners() {
     render(){
         this._ideaListEl.innerHTML = this._ideas.map((idea) => {
             const tagClass = this.getTagClass(idea.tag);
-            const deleteBtn = idea.username === localStorage.getItem('usernamne') ? ` <button class="delete"><i class="fas fa-times"></i></button>` : '';
+            let deleteBtn;
+            if(idea.username === localStorage.getItem('username')){
+                deleteBtn = `<button class="delete"><i class="fas fa-times"></i></button>`;
+            }else {
+                deleteBtn = '';
+            }
+            // const deleteBtn = idea.username === localStorage.getItem('usernamne') ? ` <button class="delete"><i class="fas fa-times"></i></button>` : '';
             return `
             <div class="card" data-id="${idea._id}">
-            ${deleteBtn}
-          <h3>
-           ${idea.text}
-          </h3>
-          <p class="tag ${tagClass}">${idea.tag.toUpperCase()}</p>
-          <p>
-            Posted on <span class="date">${idea.date}</span> by
-            <span class="author">${idea.username}</span>
-          </p>
-         </div>
+                ${deleteBtn}
+                <h3>${idea.text}</h3>
+                <p class="tag ${tagClass}">${idea.tag.toUpperCase()}</p>
+                <p>
+                    Posted on <span class="date">${new Date(idea.date).toLocaleString('en-US',{
+                        day:'2-digit',
+                        month:'short',
+                        year: 'numeric',
+                        hour:'2-digit',
+                        minute:'2-digit'
+                    })}</span> by
+                    <span class="author">${idea.username}</span>
+                </p>
+            </div>
             
             `;
         }).join('')
